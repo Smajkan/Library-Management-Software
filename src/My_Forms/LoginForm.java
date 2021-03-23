@@ -5,10 +5,15 @@
  */
 package My_Forms;
 
+import My_Classes.DB;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,20 +30,12 @@ public class LoginForm extends javax.swing.JFrame {
         //centriranje forme
         this.setLocationRelativeTo(null);
         
-        //Poziv funkcije da se pokaze slika
-        displayImage();
+        //Poziv funkcije da se pokaze slika na vrhu
+        My_Classes.Func_Class func = new My_Classes.Func_Class();
+        func.displayImage(jLabel_Logo.getWidth(), jLabel_Logo.getHeight(), "/My_Images/book_login_logo.jpg", jLabel_Logo);
     }
     
-    // Function for displaying the image in jlabel
-    public void displayImage(){
-        //ucitavanje slike
-        ImageIcon imgIco = new ImageIcon(getClass().getResource("/My_Images/book_login_logo.jpg"));
-       //Kako bi slika fitovala se u label
-        Image image = imgIco.getImage().getScaledInstance(jLabel_Logo.getWidth(), jLabel_Logo.getHeight(), Image.SCALE_SMOOTH);
-        //Postavljanje slike unutar našeg JLabel-a
-        jLabel_Logo.setIcon(new ImageIcon(image));
-    }
-    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -181,17 +178,53 @@ public class LoginForm extends javax.swing.JFrame {
         String password = String.valueOf(jPassword_Pass.getPassword());
         
         ResultSet rs;
-        PreparedStatement st;
+        PreparedStatement ps;
         
-        
+        //SELECT query
         String query = "SELECT * FROM `users` WHERE `username` = ? AND `password`=?";
         
         //provjera ukoliko su polja prazna
         if(username.trim().equals("") || password.trim().equals(""))
         {
-            System.out.println("Prazno");
+            JOptionPane.showMessageDialog(null,"Upišite vaše korisničko ime i šifru","Prazna polja",2);
         }
-        
+        else
+        {
+            try {
+                
+                //konekcija od klase DB
+                ps = DB.getConnection().prepareStatement(query);
+                
+                
+                ps.setString(1, username);
+                ps.setString(2, password);
+                
+                rs = ps.executeQuery();
+                
+                //Provjeravamo ako korisnik postoji
+
+
+                //ako korisnik postoji
+                if(rs.next())
+                {
+                    // Prikazuje se dashboard forma
+                    DashboardForm dash_f = new DashboardForm();
+                    dash_f.setVisible(true);
+                    
+                    //zatvaramo login formu
+                    
+                    this.dispose();
+                }
+                //Ako korisnik ne postoji
+                else
+                {
+                    JOptionPane.showMessageDialog(null,"Niste unijeli tačan username/password","Neispravni podaci",0);
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton_LoginActionPerformed
 
     /**

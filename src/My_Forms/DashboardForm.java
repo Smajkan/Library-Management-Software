@@ -5,6 +5,7 @@
  */
 package My_Forms;
 
+import My_Classes.Func_Class;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -25,6 +26,10 @@ public class DashboardForm extends javax.swing.JFrame {
 Border buttonBorder1 = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
 Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,37,42));
     
+
+
+
+ My_Classes.Func_Class func = new Func_Class();
     
     
     /**
@@ -35,7 +40,8 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         //centriranje forme
         this.setLocationRelativeTo(null);
         //pozivanje funkcije displayImage
-        displayImage();
+        
+        func.displayImage(jLabel_Dashboard_Logo.getWidth(), jLabel_Dashboard_Logo.getHeight(), "/My_Images/book_dash_logo.png", jLabel_Dashboard_Logo);
         
         //dodajemo border headeru
         Border panelHeaderBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.white);
@@ -53,24 +59,18 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         
         Border panelHeader_4_Border = BorderFactory.createMatteBorder(0, 0, 3, 0, new Color(58,83,155));
         jPanel_4_header.setBorder(panelHeader_4_Border);
-    }
- public void displayImage(){
-        //ucitavanje slike
-        ImageIcon imgIco = new ImageIcon(getClass().getResource("/My_Images/book_dash_logo.png"));
-       //Kako bi slika fitovala se u label
-        Image image = imgIco.getImage().getScaledInstance(jLabel_Dashboard_Logo.getWidth(), jLabel_Dashboard_Logo.getHeight(), Image.SCALE_SMOOTH);
-        //Postavljanje slike unutar našeg JLabel-a
-        jLabel_Dashboard_Logo.setIcon(new ImageIcon(image));
-        
-        
-        //Poziv funkcije za hover efekat
+
+//Poziv funkcije za hover efekat
         buttonsHoverEffect();
         
         //Border za sve buttone
         addBorders();
         
+     
         
- }
+        
+    }
+
  
  
  //Funkcija kako bi dodali bordere svim buttonima u jPanel meniju
