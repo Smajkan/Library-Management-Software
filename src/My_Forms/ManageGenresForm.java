@@ -38,21 +38,11 @@ My_Classes.Genre genre = new My_Classes.Genre();
         func.displayImage(75, 60, "/My_Images/hierarchy.png", jLabel_FormTitle);
         
         
-        //uredjivanje tabele
+ 
+       func.customTable(jTable_Genres_);
+ 
         
-        jTable_Genres_.setSelectionBackground(new Color(249,105,14));
-        jTable_Genres_.setSelectionForeground(Color.white);
-        jTable_Genres_.setRowHeight(30);
-        jTable_Genres_.setShowGrid(false);
-        jTable_Genres_.setBackground(new Color(248,248,248));
-        
-        
-        //uredjivanje headera tabele 
-        jTable_Genres_.getTableHeader().setBackground(new Color(42,187,155)); //ne prikazuje se trenutno popravit ću poslije
-        jTable_Genres_.getTableHeader().setForeground(Color.white);
-        jTable_Genres_.getTableHeader().setFont(new Font("Verdana", Font.BOLD, 20));
-        jTable_Genres_.getTableHeader().setOpaque(false);
-        
+        func.customTableHeader(jTable_Genres_, new Color(42,187,155), 20);
         
         //Ovdje sakrijemo jlabel empty koji je napravljen ukoliko nije upisano ime žanra
         

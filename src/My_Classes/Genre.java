@@ -131,14 +131,10 @@ public class Genre {
         //funkcija da se sastavi arrayList zajedno sa žanrovima
         public ArrayList<Genre> genreList(){
             ArrayList<Genre> gList = new ArrayList<>();
-            
-            String selectQuery = "SELECT * FROM `book_genres`";
-            PreparedStatement ps;
-            ResultSet rs;
-            
+           My_Classes.Func_Class func = new Func_Class();
+           
         try {
-            ps = DB.getConnection().prepareStatement(selectQuery);
-            rs = ps.executeQuery();
+           ResultSet rs = func.getData("SELECT * FROM `book_genres`");
             
             Genre genre;
             
