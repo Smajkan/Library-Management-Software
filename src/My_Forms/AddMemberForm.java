@@ -2,12 +2,21 @@
 package My_Forms;
 
 import java.awt.Color;
-import My_Classes.Author;
+import My_Classes.Member;
 import java.awt.Font;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,7 +24,16 @@ import javax.swing.table.DefaultTableModel;
  * @author aldin
  */
 public class AddMemberForm extends javax.swing.JFrame {
-My_Classes.Author author = new My_Classes.Author();
+    
+//Kreiramo člana objekta
+My_Classes.Member member = new My_Classes.Member();
+
+
+
+
+//varijabla koja će sačuvati sliku
+String imagePath = null;
+
     /**
      * Creates new form ManageGenresForm
      */
@@ -40,7 +58,7 @@ My_Classes.Author author = new My_Classes.Author();
         
         jLabel_EmptyFirstName_.setVisible(false);
         jLabel_EmptyLastName_.setVisible(false);
-        //Ovdje treba dodati jLabel_EmptyPhoneNumber.setVisible(false);
+        jLabel_EmptyPhone_.setVisible(false);
         
         
  
@@ -66,15 +84,15 @@ My_Classes.Author author = new My_Classes.Author();
         jTextField_LastName = new javax.swing.JTextField();
         jLabel_EmptyLastName_ = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField_LastName1 = new javax.swing.JTextField();
-        jLabel_EmptyLastName_1 = new javax.swing.JLabel();
+        jTextField_Phone = new javax.swing.JTextField();
+        jLabel_EmptyPhone_ = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField_LastName2 = new javax.swing.JTextField();
+        jTextField_Email = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox_Gender = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabel_ImagePath = new javax.swing.JLabel();
+        jButton_SelectProfilePicture_ = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -140,35 +158,41 @@ My_Classes.Author author = new My_Classes.Author();
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel7.setText("Broj telefona:");
 
-        jTextField_LastName1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jTextField_Phone.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
-        jLabel_EmptyLastName_1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel_EmptyLastName_1.setForeground(new java.awt.Color(253, 0, 0));
-        jLabel_EmptyLastName_1.setText("*Upišite broj telefona");
-        jLabel_EmptyLastName_1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel_EmptyPhone_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel_EmptyPhone_.setForeground(new java.awt.Color(253, 0, 0));
+        jLabel_EmptyPhone_.setText("*Upišite broj telefona");
+        jLabel_EmptyPhone_.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_EmptyLastName_1MouseClicked(evt);
+                jLabel_EmptyPhone_MouseClicked(evt);
             }
         });
 
         jLabel8.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel8.setText("Spol:");
 
-        jTextField_LastName2.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jTextField_Email.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel9.setText("E-mail:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muški", "Ženski" }));
+        jComboBox_Gender.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox_Gender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Muški", "Ženski" }));
 
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel10.setText("Slika profila:");
 
-        jLabel11.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel11.setText("Odaberi profilnu sliku.........");
+        jLabel_ImagePath.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jLabel_ImagePath.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel_ImagePath.setText("Odaberi profilnu sliku.........");
 
-        jButton1.setText("Odaberite sliku");
+        jButton_SelectProfilePicture_.setText("Odaberite sliku");
+        jButton_SelectProfilePicture_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SelectProfilePicture_ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -188,19 +212,19 @@ My_Classes.Author author = new My_Classes.Author();
                         .addComponent(jLabel1)
                         .addComponent(jLabel_EmptyLastName_, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)
-                        .addComponent(jLabel_EmptyLastName_1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel_EmptyPhone_, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField_LastName)
-                        .addComponent(jTextField_LastName1)
+                        .addComponent(jTextField_Phone)
                         .addComponent(jLabel8)
-                        .addComponent(jTextField_LastName2)
+                        .addComponent(jTextField_Email)
                         .addComponent(jLabel9)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox_Gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_Add_, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
                     .addComponent(jLabel10)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton_SelectProfilePicture_, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -224,24 +248,24 @@ My_Classes.Author author = new My_Classes.Author();
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_LastName1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_EmptyLastName_1)
+                .addComponent(jLabel_EmptyPhone_)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_LastName2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                    .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_SelectProfilePicture_))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -272,11 +296,13 @@ My_Classes.Author author = new My_Classes.Author();
 
     private void jButton_Add_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_ActionPerformed
 
-        //button za dodavanje novog autora
+        //button za dodavanje novog člana
         String fname = jTextField_FirstName.getText();
         String lname = jTextField_LastName.getText();
-        //String expertise = jTextField_Expertise.getText();
-        //String about = jTextArea_About.getText();
+        String phone = jTextField_Phone.getText();
+        String email = jTextField_Email.getText();
+        String gender = jComboBox_Gender.getSelectedItem().toString();
+        
         
 
         //provjerava da li su polja za tekst prazna
@@ -286,12 +312,30 @@ My_Classes.Author author = new My_Classes.Author();
         else if(lname.isEmpty()){
             jLabel_EmptyLastName_.setVisible(true);
         }
+        else if(phone.isEmpty()){
+            jLabel_EmptyPhone_.setVisible(true);
+        }
         else//ako su popunjena polja
         {
-            //author.addAuthor(fname,lname, expertise, about);
+            byte[] img = null;
+            
+            if(imagePath != null){
+                
+                try {
+                    Path path = Paths.get(imagePath);
+                    img = Files.readAllBytes(path);
+                     member.addMember(fname, lname, phone, email, gender, img);
+                } catch (IOException ex) {
+                    Logger.getLogger(AddMemberForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+               
+            }else{
+                JOptionPane.showMessageDialog(null, "Odaberite sliku profila za ovog člana.", "Profilna slika nije odabrana",2);
+                
+                
+            }
 
-            //osvježavanje tabele nakon što se doda žanr
-            populateJtableWithAuthors();
         }
 
     }//GEN-LAST:event_jButton_Add_ActionPerformed
@@ -303,9 +347,29 @@ My_Classes.Author author = new My_Classes.Author();
 
     }//GEN-LAST:event_jLabel_CloseForm_MouseClicked
 
-    private void jLabel_EmptyLastName_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_EmptyLastName_1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel_EmptyLastName_1MouseClicked
+    private void jLabel_EmptyPhone_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_EmptyPhone_MouseClicked
+        jLabel_EmptyPhone_.setVisible(false);
+    }//GEN-LAST:event_jLabel_EmptyPhone_MouseClicked
+
+    private void jButton_SelectProfilePicture_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SelectProfilePicture_ActionPerformed
+        //Selektovanje slike iz računara
+        
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Odaberite Sliku Profila");
+        
+        fileChooser.setCurrentDirectory(new File("C:\\Images"));
+        
+        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("image",".png",".jpg",".jpeg");
+        fileChooser.addChoosableFileFilter(extensionFilter);
+        
+        int fileState = fileChooser.showSaveDialog(null);
+        
+        if(fileState == JFileChooser.APPROVE_OPTION){
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            jLabel_ImagePath.setText(path);
+            imagePath = path;
+        }
+    }//GEN-LAST:event_jButton_SelectProfilePicture_ActionPerformed
 
     
    
@@ -352,12 +416,11 @@ My_Classes.Author author = new My_Classes.Author();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton_Add_;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton_SelectProfilePicture_;
+    private javax.swing.JComboBox<String> jComboBox_Gender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -365,12 +428,13 @@ My_Classes.Author author = new My_Classes.Author();
     private javax.swing.JLabel jLabel_CloseForm_;
     private javax.swing.JLabel jLabel_EmptyFirstName_;
     private javax.swing.JLabel jLabel_EmptyLastName_;
-    private javax.swing.JLabel jLabel_EmptyLastName_1;
+    private javax.swing.JLabel jLabel_EmptyPhone_;
     private javax.swing.JLabel jLabel_FormTitle;
+    private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField_Email;
     private javax.swing.JTextField jTextField_FirstName;
     private javax.swing.JTextField jTextField_LastName;
-    private javax.swing.JTextField jTextField_LastName1;
-    private javax.swing.JTextField jTextField_LastName2;
+    private javax.swing.JTextField jTextField_Phone;
     // End of variables declaration//GEN-END:variables
 }

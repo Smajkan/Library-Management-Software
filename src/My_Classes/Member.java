@@ -1,0 +1,127 @@
+
+package My_Classes;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
+public class Member {
+    
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String email;
+    private String gender;
+    private byte[] picture;
+
+    
+    
+    public Member(){}
+    
+    
+        public Member(int _id, String _fname, String _lname, String _phone, String _email, String _gender, byte[] _picture){
+        
+        this.id = _id;
+        this.firstName = _fname;
+        this.lastName = _lname;
+        this.phone = _phone;
+        this.email = _email;
+        this.gender = _gender;
+        this.picture = _picture;
+        
+    }
+        
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+   
+        
+//Funkcija za dodavanje novog člana
+    public void addMember(String _fname, String _lname, String _phone, String _email, String _gender, byte[] _pic)
+    {
+        String insertQuery = "INSERT INTO `members`(`firstName`, `lastName`, `phone`, `email`, `gender`, `picture`) VALUES (?,?,?,?,?,?)";
+        
+        try {
+            
+            PreparedStatement ps = DB.getConnection().prepareStatement(insertQuery);
+            ps.setString(1, _fname);
+            ps.setString(2, _lname);
+            ps.setString(3, _phone);
+            ps.setString(4, _email);
+            ps.setString(5, _gender);
+            ps.setBytes(6, _pic);
+            
+            if(ps.executeUpdate()==1){
+                JOptionPane.showMessageDialog(null, "Član dodat", "Dodavanje člana",1);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Dodavanje člana neuspješno.", "Dodavanje člana",2);
+            }
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+ 
+    
+}

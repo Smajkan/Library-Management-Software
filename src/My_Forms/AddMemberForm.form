@@ -59,20 +59,20 @@
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel_EmptyLastName_" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel_EmptyLastName_1" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                          <Component id="jLabel_EmptyPhone_" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                           <Component id="jTextField_LastName" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jTextField_LastName1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextField_Phone" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField_LastName2" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jTextField_Email" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jComboBox_Gender" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButton_Add_" alignment="0" pref="450" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel11" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Component id="jLabel_ImagePath" min="-2" pref="160" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="149" max="-2" attributes="0"/>
+                          <Component id="jButton_SelectProfilePicture_" min="-2" pref="149" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
@@ -101,25 +101,25 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField_LastName1" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="jTextField_Phone" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel_EmptyLastName_1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_EmptyPhone_" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField_LastName2" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="jTextField_Email" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBox_Gender" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel11" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel_ImagePath" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jButton_SelectProfilePicture_" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace pref="63" max="32767" attributes="0"/>
                   <Component id="jButton_Add_" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -242,14 +242,14 @@
             <Property name="text" type="java.lang.String" value="Broj telefona:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField_LastName1">
+        <Component class="javax.swing.JTextField" name="jTextField_Phone">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="14" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel_EmptyLastName_1">
+        <Component class="javax.swing.JLabel" name="jLabel_EmptyPhone_">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
@@ -260,7 +260,7 @@
             <Property name="text" type="java.lang.String" value="*Upi&#x161;ite broj telefona"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_EmptyLastName_1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_EmptyPhone_MouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -271,7 +271,7 @@
             <Property name="text" type="java.lang.String" value="Spol:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField_LastName2">
+        <Component class="javax.swing.JTextField" name="jTextField_Email">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="14" style="0"/>
@@ -286,8 +286,11 @@
             <Property name="text" type="java.lang.String" value="E-mail:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="jComboBox_Gender">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="14" style="0"/>
+            </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
                 <StringItem index="0" value="Mu&#x161;ki"/>
@@ -307,7 +310,7 @@
             <Property name="text" type="java.lang.String" value="Slika profila:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
+        <Component class="javax.swing.JLabel" name="jLabel_ImagePath">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Comic Sans MS" size="14" style="0"/>
@@ -318,10 +321,13 @@
             <Property name="text" type="java.lang.String" value="Odaberi profilnu sliku........."/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="jButton_SelectProfilePicture_">
           <Properties>
             <Property name="text" type="java.lang.String" value="Odaberite sliku"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_SelectProfilePicture_ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -6,6 +6,7 @@
 package My_Classes;
 
 import com.sun.jdi.connect.spi.Connection;
+import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,12 +41,13 @@ public class DBTest {
 
     /**
      * Test of getConnection method, of class DB.
+     * @throws java.sql.SQLException
      */
     @Test
-    public void testGetConnection() {
+    public void testGetConnection() throws SQLException {
         System.out.println("getConnection");
         Connection expResult = null;
-        Connection result = DB.getConnection();
+        Connection result = (Connection) DB.getConnection();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
