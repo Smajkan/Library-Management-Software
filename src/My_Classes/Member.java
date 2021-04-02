@@ -122,6 +122,66 @@ public class Member {
         }
         
     }
+    
+    
+      //Funkcija za editovanje member pomoću ID-a
+        public void editAuthor(Integer _id,String _fname, String _lname, String _phone, String _email, String _gender, byte[] _pic)
+    {
+        String editQuery = "UPDATE `members` SET `firstName`=?, `lastName`=?, `phone`=?, `email`=?, `gender`=?, `picture`=?  WHERE `id`=?";
+        
+        try {
+            
+            PreparedStatement ps = DB.getConnection().prepareStatement(editQuery);
+            
+            ps.setInt(1, _id);
+            ps.setString(2, _fname);
+            ps.setString(3, _lname);
+            ps.setString(4, _phone);
+            ps.setString(5, _email);
+            ps.setString(6, _gender);
+            ps.setBytes(7, _pic);
+            
+            
+            
+            if(ps.executeUpdate() != 0){
+                JOptionPane.showMessageDialog(null, "Član uređen", "Uređivanje član",1);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Uređivanje člana neuspješno.", "Uređivanje član",2);
+            }
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+//Funkcija za brisanje membera pomoću ID-a
+        public void removeMember(int _id)
+        {
+        String removeQuery = "DELETE FROM `members` WHERE `id` = ?";
+        
+        try {
+            
+            PreparedStatement ps = DB.getConnection().prepareStatement(removeQuery);
+            
+            
+           
+            ps.setInt(1, _id);
+            
+            
+            if(ps.executeUpdate() != 0){
+                JOptionPane.showMessageDialog(null, "Član izbrisan", "Brisanje člana",1);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Brisanje člana neuspješno.", "Brisanje člana",2);
+            }
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        }
+
  
     
 }
