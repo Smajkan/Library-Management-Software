@@ -9,8 +9,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import java.lang.NumberFormatException;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
@@ -23,10 +26,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author aldin
  */
-public class AddMemberForm extends javax.swing.JFrame {
+public class EditMemberForm extends javax.swing.JFrame {
     
 //Kreiramo člana objekta
 My_Classes.Member member = new My_Classes.Member();
+
+//Kreiramo func class instancu
+My_Classes.Func_Class func = new My_Classes.Func_Class();
 
 
 
@@ -37,7 +43,7 @@ String imagePath = null;
     /**
      * Creates new form ManageGenresForm
      */
-    public AddMemberForm() {
+    public EditMemberForm() {
         initComponents();
         
         //centriramo formu
@@ -47,9 +53,14 @@ String imagePath = null;
         Border panelHeaderBorder = BorderFactory.createMatteBorder(3,3,3,3, new Color(1, 152, 117)); 
         jPanel1.setBorder(panelHeaderBorder);
          
+        
+        //Dodajemo crni border za jLabel sliku
+         Border JlabelImageBorder = BorderFactory.createMatteBorder(2,2,2,2, new Color(0,0,0)); 
+        jLabel_Image.setBorder(JlabelImageBorder);
          //prikaz slike u vrhu
         //Poziv funkcije da se pokaze slika na vrhu
-        My_Classes.Func_Class func = new My_Classes.Func_Class();
+        
+        //Prikazujemo sliku koristeći path do slike, tako da ćemo setovati imagebyte na null
         func.displayImage(90,60,null,"/My_Images/members.png", jLabel_FormTitle);
         
 
@@ -78,7 +89,7 @@ String imagePath = null;
         jLabel_CloseForm_ = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextField_FirstName = new javax.swing.JTextField();
-        jButton_Add_ = new javax.swing.JButton();
+        jButton_Edit_ = new javax.swing.JButton();
         jLabel_EmptyFirstName_ = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextField_LastName = new javax.swing.JTextField();
@@ -91,8 +102,12 @@ String imagePath = null;
         jLabel9 = new javax.swing.JLabel();
         jComboBox_Gender = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        jLabel_ImagePath = new javax.swing.JLabel();
         jButton_SelectProfilePicture_ = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField_Id = new javax.swing.JTextField();
+        jButton_Search_ = new javax.swing.JButton();
+        jLabel_Image = new javax.swing.JLabel();
+        jLabel_ImagePath = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -103,7 +118,7 @@ String imagePath = null;
         jLabel_FormTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel_FormTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_FormTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_FormTitle.setText("DODAJ ČLANA");
+        jLabel_FormTitle.setText("UREDI ČLANA");
         jLabel_FormTitle.setOpaque(true);
 
         jLabel_CloseForm_.setBackground(new java.awt.Color(1, 152, 117));
@@ -124,11 +139,11 @@ String imagePath = null;
 
         jTextField_FirstName.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
 
-        jButton_Add_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton_Add_.setText("DODAJ NOVOG ČLANA");
-        jButton_Add_.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Edit_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton_Edit_.setText("UREDI INFORMACIJE ČLANA");
+        jButton_Edit_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Add_ActionPerformed(evt);
+                jButton_Edit_ActionPerformed(evt);
             }
         });
 
@@ -183,16 +198,31 @@ String imagePath = null;
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jLabel10.setText("Slika profila:");
 
-        jLabel_ImagePath.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jLabel_ImagePath.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel_ImagePath.setText("Odaberi profilnu sliku.........");
-
         jButton_SelectProfilePicture_.setText("Odaberite sliku");
         jButton_SelectProfilePicture_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_SelectProfilePicture_ActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel2.setText("Upišite ID člana:");
+
+        jTextField_Id.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+
+        jButton_Search_.setText("PRETRAŽI");
+        jButton_Search_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Search_ActionPerformed(evt);
+            }
+        });
+
+        jLabel_Image.setBackground(new java.awt.Color(153, 204, 255));
+        jLabel_Image.setOpaque(true);
+
+        jLabel_ImagePath.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        jLabel_ImagePath.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel_ImagePath.setText("Odaberi profilnu.....");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -205,27 +235,43 @@ String imagePath = null;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField_FirstName, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel_EmptyFirstName_, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel_EmptyLastName_, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel_EmptyPhone_, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField_LastName)
-                        .addComponent(jTextField_Phone)
-                        .addComponent(jLabel8)
-                        .addComponent(jTextField_Email)
-                        .addComponent(jLabel9)
-                        .addComponent(jComboBox_Gender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton_Add_, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                    .addComponent(jLabel10)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_SelectProfilePicture_, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 10, Short.MAX_VALUE))
+                        .addComponent(jButton_Search_, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jComboBox_Gender, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_Edit_, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextField_Email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                                .addComponent(jTextField_Phone, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField_LastName, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField_FirstName, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel_EmptyFirstName_)
+                                .addComponent(jLabel_EmptyLastName_)
+                                .addComponent(jLabel_EmptyPhone_)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton_SelectProfilePicture_, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel_ImagePath)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,40 +279,52 @@ String imagePath = null;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_FormTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_CloseForm_, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_Search_, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_EmptyFirstName_)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_FirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_EmptyFirstName_))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_LastName, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_EmptyLastName_))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_EmptyLastName_)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_EmptyPhone_))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel_EmptyPhone_)
-                .addGap(11, 11, 11)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox_Gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_SelectProfilePicture_))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton_Edit_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_SelectProfilePicture_)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_ImagePath)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -274,7 +332,7 @@ String imagePath = null;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +352,7 @@ String imagePath = null;
         jLabel_EmptyFirstName_.setVisible(false);
     }//GEN-LAST:event_jLabel_EmptyFirstName_MouseClicked
 
-    private void jButton_Add_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_ActionPerformed
+    private void jButton_Edit_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_ActionPerformed
 
         //button za dodavanje novog člana
         String fname = jTextField_FirstName.getText();
@@ -326,7 +384,7 @@ String imagePath = null;
                     img = Files.readAllBytes(path);
                      member.addMember(fname, lname, phone, email, gender, img);
                 } catch (IOException ex) {
-                    Logger.getLogger(AddMemberForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                
@@ -338,7 +396,7 @@ String imagePath = null;
 
         }
 
-    }//GEN-LAST:event_jButton_Add_ActionPerformed
+    }//GEN-LAST:event_jButton_Edit_ActionPerformed
 
     private void jLabel_CloseForm_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_CloseForm_MouseClicked
         //Zatvaramo formu
@@ -366,10 +424,44 @@ String imagePath = null;
         
         if(fileState == JFileChooser.APPROVE_OPTION){
             String path = fileChooser.getSelectedFile().getAbsolutePath();
-            jLabel_ImagePath.setText(path);
+            //jLabel_ImagePath.setText(path);
             imagePath = path;
         }
     }//GEN-LAST:event_jButton_SelectProfilePicture_ActionPerformed
+
+    private void jButton_Search_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Search_ActionPerformed
+        
+    //Pomoću sljedeće funkcije dobijamo podatek od membera
+        Member SelectedMember;
+        try {
+            
+            Integer id = Integer.parseInt(jTextField_Id.getText());
+            
+            
+            SelectedMember = member.getMemberById(id);
+            jTextField_Id.setText(String.valueOf(SelectedMember.getId()));
+            jTextField_FirstName.setText(SelectedMember.getFirstName());
+            jTextField_LastName.setText(SelectedMember.getLastName());
+            jTextField_Phone.setText(SelectedMember.getPhone());
+            jTextField_Email.setText(SelectedMember.getEmail());
+            jComboBox_Gender.setSelectedItem(SelectedMember.getGender());
+       
+            //Prikaz slike u labelu
+            byte[] image = SelectedMember.getPicture();
+            
+            //Ovdje postavljamo sliku koristeći imagebyte, tako da ćemo image path staviti na praznu
+             func.displayImage(90,60,image,"", jLabel_Image);
+        
+        } catch (SQLException | NumberFormatException ex) {
+            //Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Upišite validan ID člana", "Neispravan ID",3);
+        }
+        
+        
+
+        
+        
+    }//GEN-LAST:event_jButton_Search_ActionPerformed
 
     
    
@@ -394,14 +486,18 @@ String imagePath = null;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMemberForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -410,17 +506,19 @@ String imagePath = null;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddMemberForm().setVisible(true);
+                new EditMemberForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton_Add_;
+    private javax.swing.JButton jButton_Edit_;
+    private javax.swing.JButton jButton_Search_;
     private javax.swing.JButton jButton_SelectProfilePicture_;
     private javax.swing.JComboBox<String> jComboBox_Gender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -430,10 +528,12 @@ String imagePath = null;
     private javax.swing.JLabel jLabel_EmptyLastName_;
     private javax.swing.JLabel jLabel_EmptyPhone_;
     private javax.swing.JLabel jLabel_FormTitle;
+    private javax.swing.JLabel jLabel_Image;
     private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField_Email;
     private javax.swing.JTextField jTextField_FirstName;
+    private javax.swing.JTextField jTextField_Id;
     private javax.swing.JTextField jTextField_LastName;
     private javax.swing.JTextField jTextField_Phone;
     // End of variables declaration//GEN-END:variables

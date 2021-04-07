@@ -32,7 +32,7 @@ My_Classes.Author author = new My_Classes.Author();
          //prikaz slike u vrhu
         //Poziv funkcije da se pokaze slika na vrhu
         My_Classes.Func_Class func = new My_Classes.Func_Class();
-        func.displayImage(75, 60, "/My_Images/notepad.png", jLabel_FormTitle);
+        func.displayImage(75, 60,null,"/My_Images/notepad.png", jLabel_FormTitle);
         
         func.customTable(jTable_Authors_);     
         func.customTableHeader(jTable_Authors_, new Color(34,167,240), 16);

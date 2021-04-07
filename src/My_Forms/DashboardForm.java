@@ -41,7 +41,7 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         this.setLocationRelativeTo(null);
         //pozivanje funkcije displayImage
         
-        func.displayImage(jLabel_Dashboard_Logo.getWidth(), jLabel_Dashboard_Logo.getHeight(), "/My_Images/book_dash_logo.png", jLabel_Dashboard_Logo);
+        func.displayImage(jLabel_Dashboard_Logo.getWidth(), jLabel_Dashboard_Logo.getHeight(),null, "/My_Images/book_dash_logo.png", jLabel_Dashboard_Logo);
         
         //dodajemo border headeru
         Border panelHeaderBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.white);

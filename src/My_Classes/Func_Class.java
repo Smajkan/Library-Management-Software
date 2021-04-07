@@ -19,9 +19,17 @@ import javax.swing.JTable;
  */
 public class Func_Class {
     
-     public void displayImage(int width, int height, String imagePath, JLabel label){
-        //ucitavanje slike
-        ImageIcon imgIco = new ImageIcon(getClass().getResource(imagePath));
+     public void displayImage(int width, int height, byte[] imagebyte, String imagePath, JLabel label){
+        //ucitavanje slike,
+        ImageIcon imgIco;
+        if(imagebyte != null){
+            imgIco = new ImageIcon(imagebyte);
+        }
+        else{
+
+            imgIco = new ImageIcon(getClass().getResource(imagePath));
+        }
+       
        //Kako bi slika fitovala se u label
         Image image = imgIco.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         //Postavljanje slike unutar našeg JLabel-a
