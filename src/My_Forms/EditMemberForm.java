@@ -59,23 +59,10 @@ String imagePath = null;
         //Prikazujemo sliku koristeći path do slike, tako da ćemo setovati imagebyte na null
         func.displayImage(90,60,null,"/My_Images/members.png", jLabel_FormTitle);
         
-<<<<<<< HEAD
         //Ovdje sakrijemo jlabel empty koji je napravljen ukoliko nije upisano ime žanra
         jLabel_EmptyFirstName_.setVisible(false);
         jLabel_EmptyLastName_.setVisible(false);
         jLabel_EmptyPhone_.setVisible(false);
-=======
-
-        
-        //Ovdje sakrijemo jlabel empty koji je napravljen ukoliko nije upisano ime žanra
-        
-        jLabel_EmptyFirstName_.setVisible(false);
-        jLabel_EmptyLastName_.setVisible(false);
-        jLabel_EmptyPhone_.setVisible(false);
-        
-        
- 
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
     }
 
     /**
@@ -152,11 +139,7 @@ String imagePath = null;
 
         jLabel_EmptyFirstName_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel_EmptyFirstName_.setForeground(new java.awt.Color(253, 0, 0));
-<<<<<<< HEAD
         jLabel_EmptyFirstName_.setText("*Upišite ime člana");
-=======
-        jLabel_EmptyFirstName_.setText("*Upišite ime pisca");
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         jLabel_EmptyFirstName_.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_EmptyFirstName_MouseClicked(evt);
@@ -170,11 +153,7 @@ String imagePath = null;
 
         jLabel_EmptyLastName_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel_EmptyLastName_.setForeground(new java.awt.Color(253, 0, 0));
-<<<<<<< HEAD
         jLabel_EmptyLastName_.setText("*Upišite prezime člana");
-=======
-        jLabel_EmptyLastName_.setText("*Upišite prezime autora");
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         jLabel_EmptyLastName_.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel_EmptyLastName_MouseClicked(evt);
@@ -364,10 +343,7 @@ String imagePath = null;
     private void jButton_Edit_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Edit_ActionPerformed
 
         //button za dodavanje novog člana
-<<<<<<< HEAD
         Integer id2 = Integer.parseInt(jTextField_Id.getText());
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         String fname = jTextField_FirstName.getText();
         String lname = jTextField_LastName.getText();
         String phone = jTextField_Phone.getText();
@@ -393,31 +369,18 @@ String imagePath = null;
             if(imagePath != null){
                 
                 try {
-<<<<<<< HEAD
                     
                     
                     Path path = Paths.get(imagePath);
                     img = Files.readAllBytes(path);
                      member.editMember(id2,fname, lname, phone, email, gender, img);
-=======
-                    Path path = Paths.get(imagePath);
-                    img = Files.readAllBytes(path);
-                     member.addMember(fname, lname, phone, email, gender, img);
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                 } catch (IOException ex) {
                     Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-<<<<<<< HEAD
-            }else{
-                JOptionPane.showMessageDialog(null, "Odaberite sliku profila za ovog člana.", "Profilna slika nije odabrana",2);
-=======
                
             }else{
                 JOptionPane.showMessageDialog(null, "Odaberite sliku profila za ovog člana.", "Profilna slika nije odabrana",2);
-                
-                
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
             }
 
         }
@@ -468,19 +431,15 @@ String imagePath = null;
             
             
             SelectedMember = member.getMemberById(id);
-<<<<<<< HEAD
             
             if(SelectedMember != null){
                 //Ako je id ispravan, prikazuje se informacije:         
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
             jTextField_Id.setText(String.valueOf(SelectedMember.getId()));
             jTextField_FirstName.setText(SelectedMember.getFirstName());
             jTextField_LastName.setText(SelectedMember.getLastName());
             jTextField_Phone.setText(SelectedMember.getPhone());
             jTextField_Email.setText(SelectedMember.getEmail());
             jComboBox_Gender.setSelectedItem(SelectedMember.getGender());
-<<<<<<< HEAD
             //Prikaz slike u labelu
             byte[] image = SelectedMember.getPicture();
             //Ovdje postavljamo sliku koristeći imagebyte, tako da ćemo image path staviti na praznu
@@ -495,18 +454,6 @@ String imagePath = null;
         catch (SQLException | NumberFormatException ex) {
             //Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Upišite validan ID člana", "Neispravan ID",3);    
-=======
-       
-            //Prikaz slike u labelu
-            byte[] image = SelectedMember.getPicture();
-            
-            //Ovdje postavljamo sliku koristeći imagebyte, tako da ćemo image path staviti na praznu
-             func.displayImage(180,141,image,"", jLabel_Image);
-        
-        } catch (SQLException | NumberFormatException ex) {
-            //Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Upišite validan ID člana", "Neispravan ID",3);
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         }
         
         

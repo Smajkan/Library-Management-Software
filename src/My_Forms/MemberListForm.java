@@ -5,9 +5,12 @@
  */
 package My_Forms;
 
+import My_Classes.Member;
 import java.awt.Color;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
@@ -39,8 +42,13 @@ public class MemberListForm extends javax.swing.JFrame {
         
                
         func.customTable(jTable_Members_);     
-        func.customTableHeader(jTable_Members_, new Color(34,167,240), 16);
-        populateJtableWithMembers();
+        func.customTableHeader(jTable_Members_, new Color(36,37,42), 16);
+//Dodajemo crni border za jLabel sliku
+         Border JlabelImageBorder = BorderFactory.createMatteBorder(2,2,2,2, new Color(0,0,0)); 
+        jLabel_Image.setBorder(JlabelImageBorder);
+        
+        //Prikaz članova u jTable-u
+        populateJtableWithMembers("");
     }
 
     /**
@@ -60,6 +68,11 @@ public class MemberListForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Members_ = new javax.swing.JTable();
         jButton_Search_ = new javax.swing.JButton();
+        jLabel_Image = new javax.swing.JLabel();
+        jLabel_FullName = new javax.swing.JLabel();
+        jLabel_Phone = new javax.swing.JLabel();
+        jLabel_Gender = new javax.swing.JLabel();
+        jLabel_Email = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -102,6 +115,11 @@ public class MemberListForm extends javax.swing.JFrame {
 
             }
         ));
+        jTable_Members_.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_Members_MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_Members_);
 
         jButton_Search_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -111,6 +129,25 @@ public class MemberListForm extends javax.swing.JFrame {
                 jButton_Search_ActionPerformed(evt);
             }
         });
+
+        jLabel_Image.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel_Image.setOpaque(true);
+
+        jLabel_FullName.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel_FullName.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel_FullName.setText("Ime i prezime");
+
+        jLabel_Phone.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel_Phone.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel_Phone.setText("Broj");
+
+        jLabel_Gender.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel_Gender.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel_Gender.setText("Spol");
+
+        jLabel_Email.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel_Email.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel_Email.setText("Email");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,12 +165,17 @@ public class MemberListForm extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jTextField_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_Search_, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jButton_Search_, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 202, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_FullName)
+                    .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Phone)
+                    .addComponent(jLabel_Email)
+                    .addComponent(jLabel_Gender))
+                .addGap(156, 156, 156))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,16 +188,27 @@ public class MemberListForm extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_Search_, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel_FullName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_Phone)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_Email)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_Gender))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,10 +228,10 @@ public class MemberListForm extends javax.swing.JFrame {
 
     
     //Prikaz podataka u tabeli za members
-       public void populateJtableWithMembers()
+       public void populateJtableWithMembers(String query)
     {
-        
-        ArrayList<My_Classes.Member> membersList = member.membersList();
+       
+        ArrayList<My_Classes.Member> membersList = member.membersList(query);
         
         //jtable kolone
         String[] colNames = {"ID", "Ime","Prezime","Telefon","E-mail","Spol"};
@@ -203,8 +256,52 @@ public class MemberListForm extends javax.swing.JFrame {
     
     
     private void jButton_Search_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Search_ActionPerformed
-        // TODO add your handling code here:
+        // Pretraga i prikaz informacija o članu
+        String value = jTextField_Search.getText();
+        
+        //Pretraga uz pomoć imena i prezimena
+        String query ="SELECT * FROM `members` WHERE `firstName` LIKE '%"+value+"%' OR `lastName` LIKE '%"+value+"%'";
+        populateJtableWithMembers(query);
     }//GEN-LAST:event_jButton_Search_ActionPerformed
+
+    private void jTable_Members_MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_Members_MouseClicked
+        //Prikaz informacija o selektovanom clanu sa strane
+         //Pomoću sljedeće funkcije dobijamo podatek od membera
+        Member SelectedMember;
+        try {
+            
+            Integer rowIndex = jTable_Members_.getSelectedRow();
+            Integer id = Integer.parseInt(jTable_Members_.getModel().getValueAt(rowIndex,0).toString());
+            
+            
+            SelectedMember = member.getMemberById(id);
+            
+            if(SelectedMember != null){
+                //Ako je id ispravan, prikazuje se informacije:         
+
+            jLabel_FullName.setText(SelectedMember.getFirstName() + " " + SelectedMember.getLastName());
+            jLabel_Phone.setText(SelectedMember.getPhone());
+            jLabel_Email.setText(SelectedMember.getEmail());
+            jLabel_Gender.setText(SelectedMember.getGender());
+            //Prikaz slike u labelu
+            byte[] image = SelectedMember.getPicture();
+            //Ovdje postavljamo sliku koristeći imagebyte, tako da ćemo image path staviti na praznu
+             func.displayImage(180,141,image,"", jLabel_Image);
+            }
+            else{ //Ako ID nije ispravan izbacuje se dialog:
+                JOptionPane.showMessageDialog(null, "Ne postoji član sa ovim ID-om", "Neispravan ID",3);
+            }
+
+        
+        } 
+        catch (SQLException | NumberFormatException ex) {
+            //Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Upišite validan ID člana", "Neispravan ID",3);    
+        }
+        
+        
+
+    }//GEN-LAST:event_jTable_Members_MouseClicked
 
     /**
      * @param args the command line arguments
@@ -218,7 +315,8 @@ public class MemberListForm extends javax.swing.JFrame {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+     //javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
                     break;
                 }
             }
@@ -245,7 +343,12 @@ public class MemberListForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Search_;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel_CloseForm_;
+    private javax.swing.JLabel jLabel_Email;
     private javax.swing.JLabel jLabel_FormTitle;
+    private javax.swing.JLabel jLabel_FullName;
+    private javax.swing.JLabel jLabel_Gender;
+    private javax.swing.JLabel jLabel_Image;
+    private javax.swing.JLabel jLabel_Phone;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Members_;

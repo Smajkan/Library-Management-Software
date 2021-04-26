@@ -2,20 +2,11 @@
 package My_Forms;
 
 import java.awt.Color;
-<<<<<<< HEAD
-=======
-import My_Classes.Member;
-import java.awt.Font;
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -23,10 +14,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
-<<<<<<< HEAD
-=======
-import javax.swing.table.DefaultTableModel;
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 
 /**
  *
@@ -306,7 +293,6 @@ String imagePath = null;
     private void jButton_Add_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_ActionPerformed
 
         //button za dodavanje novog člana
-<<<<<<< HEAD
         
         //Skrivanje jlabela kad je prazno polje
         jLabel_EmptyFirstName_.setVisible(false);
@@ -315,15 +301,15 @@ String imagePath = null;
         
         
         //Uzimamo podatke od članova
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         String fname = jTextField_FirstName.getText();
         String lname = jTextField_LastName.getText();
         String phone = jTextField_Phone.getText();
         String email = jTextField_Email.getText();
         String gender = jComboBox_Gender.getSelectedItem().toString();
         
-        
+        //Ovdje uzimamo veličinu od jTextField-a.
+        int sizeofPhone = phone.length();
+        int sizeofEmail = email.length();
 
         //provjerava da li su polja za tekst prazna
         if(fname.isEmpty()){
@@ -334,6 +320,12 @@ String imagePath = null;
         }
         else if(phone.isEmpty()){
             jLabel_EmptyPhone_.setVisible(true);
+        }
+        else if(sizeofPhone >= 20){ // u slučaju da broj sadrži više od 20 karaktera, to neće biti uspješno, te na ovaj način handleujemo ovaj problem
+            JOptionPane.showMessageDialog(null, "Broj telefona ne može biti veći od 20 karaktera, molimo ponovite unos.", "Broj telefona previše dug",2);
+        }
+          else if(sizeofEmail >= 25){ // u slučaju da email adrži više od 20 karaktera, to neće biti uspješno, te na ovaj način handleujemo ovaj problem
+            JOptionPane.showMessageDialog(null, "Email ne može biti veći od 25 karaktera, molimo ponovite unos.", "Email previše dug",2);
         }
         else//ako su popunjena polja
         {

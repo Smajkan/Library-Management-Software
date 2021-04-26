@@ -149,7 +149,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         jLabel_Dashboard_Logo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-<<<<<<< HEAD
         jButton_EditMember_ = new javax.swing.JButton();
         jButton_AddMember_ = new javax.swing.JButton();
         jButton_Members_List_ = new javax.swing.JButton();
@@ -158,12 +157,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         jButton_Manage_Genres_ = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButton_Manage_Authors_ = new javax.swing.JButton();
-=======
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         jPanel_1 = new javax.swing.JPanel();
         jPanel_1_header = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -219,7 +212,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-<<<<<<< HEAD
         jLabel8.setText("Članovi");
 
         jButton_EditMember_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -292,30 +284,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
                 jButton_Manage_Authors_ActionPerformed(evt);
             }
         });
-=======
-        jLabel8.setText("Knjige");
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Dodaj novu knjigu");
-        jButton1.setContentAreaFilled(false);
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Dodaj novu knjigu");
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Dodaj novu knjigu");
-        jButton3.setContentAreaFilled(false);
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Dodaj novu knjigu");
-        jButton4.setContentAreaFilled(false);
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 
         javax.swing.GroupLayout jPanel_MenuLayout = new javax.swing.GroupLayout(jPanel_Menu);
         jPanel_Menu.setLayout(jPanel_MenuLayout);
@@ -330,7 +298,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
                     .addGroup(jPanel_MenuLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
                             .addComponent(jButton_AddMember_)
                             .addGroup(jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton_DeleteMember_, javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,21 +318,12 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
                             .addGroup(jPanel_MenuLayout.createSequentialGroup()
                                 .addGap(21, 21, 21)
                                 .addComponent(jButton_Manage_Authors_)))))
-=======
-                            .addComponent(jButton2)
-                            .addGroup(jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1))))))
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_MenuLayout.setVerticalGroup(
             jPanel_MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_MenuLayout.createSequentialGroup()
                 .addComponent(jPanel_Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,19 +343,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Members_List_)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addGap(0, 0, Short.MAX_VALUE))
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         );
 
         jPanel_1.setBackground(new java.awt.Color(255, 178, 41));
@@ -601,11 +546,7 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
                     .addComponent(jPanel_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel_3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-<<<<<<< HEAD
                 .addGap(84, 84, 84)
-=======
-                .addGap(81, 81, 81)
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                 .addComponent(jPanel_4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -624,7 +565,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< HEAD
     private void jButton_Manage_Authors_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Manage_Authors_ActionPerformed
         // prikazuje se forma za uredjivanje autora
         ManageAuthorsForm mngAuthorsF = new ManageAuthorsForm();
@@ -662,8 +602,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
         memberListF.setVisible(true);
     }//GEN-LAST:event_jButton_Members_List_ActionPerformed
 
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
     /**
      * @param args the command line arguments
      */
@@ -700,7 +638,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD
     private javax.swing.JButton jButton_AddMember_;
     private javax.swing.JButton jButton_DeleteMember_;
     private javax.swing.JButton jButton_EditMember_;
@@ -709,13 +646,6 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
     private javax.swing.JButton jButton_Members_List_;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-=======
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -723,10 +653,7 @@ Border buttonBorder0 = BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(36,
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-<<<<<<< HEAD
     private javax.swing.JLabel jLabel9;
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
     private javax.swing.JLabel jLabel_Dashboard_Logo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel_1;

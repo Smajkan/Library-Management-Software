@@ -125,11 +125,7 @@ public class Member {
     
     
       //Funkcija za editovanje member pomoću ID-a
-<<<<<<< HEAD
         public void editMember(Integer _id,String _fname, String _lname, String _phone, String _email, String _gender, byte[] _pic)
-=======
-        public void editAuthor(Integer _id,String _fname, String _lname, String _phone, String _email, String _gender, byte[] _pic)
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
     {
         String editQuery = "UPDATE `members` SET `firstName`=?, `lastName`=?, `phone`=?, `email`=?, `gender`=?, `picture`=?  WHERE `id`=?";
         
@@ -156,10 +152,7 @@ public class Member {
         
         } catch (SQLException ex) {
             Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
-<<<<<<< HEAD
   
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         }
         
     }
@@ -204,34 +197,29 @@ public class Member {
             return new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBytes(7));    
             }
             else{
-<<<<<<< HEAD
                 
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                 return null;
             }
             
         }
     
-<<<<<<< HEAD
         
         
             //funkcija da se sastavi arrayList zajedno sa članovima
-        public ArrayList<Member> membersList(){
+        public ArrayList<Member> membersList(String query){
+            
+            
             ArrayList<Member> mList = new ArrayList<>();
-            
-           
-            
             My_Classes.Func_Class func = new Func_Class();
-           
             
         try {
+           if (query.equals("")){ //Ako korisnik ne unese nista, ovo ce biti query (odnosno svi clanovi ce se prikazat)
+               query = "SELECT * FROM `members`";
+               
+           }
             
-            ResultSet rs = func.getData("SELECT * FROM `members`");
-            
-            
+           ResultSet rs = func.getData(query);
            Member member;
-            
             
             while(rs.next()){
                 //`, ``, ``, `about
@@ -245,6 +233,4 @@ public class Member {
         }
         return mList;
         }
-=======
->>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 }
