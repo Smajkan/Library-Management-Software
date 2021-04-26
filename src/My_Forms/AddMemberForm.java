@@ -2,11 +2,20 @@
 package My_Forms;
 
 import java.awt.Color;
+<<<<<<< HEAD
+=======
+import My_Classes.Member;
+import java.awt.Font;
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -14,6 +23,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
+<<<<<<< HEAD
+=======
+import javax.swing.table.DefaultTableModel;
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 
 /**
  *
@@ -293,6 +306,7 @@ String imagePath = null;
     private void jButton_Add_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Add_ActionPerformed
 
         //button za dodavanje novog člana
+<<<<<<< HEAD
         
         //Skrivanje jlabela kad je prazno polje
         jLabel_EmptyFirstName_.setVisible(false);
@@ -301,6 +315,8 @@ String imagePath = null;
         
         
         //Uzimamo podatke od članova
+=======
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         String fname = jTextField_FirstName.getText();
         String lname = jTextField_LastName.getText();
         String phone = jTextField_Phone.getText();

@@ -237,7 +237,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="fd" type="rgb"/>
             </Property>
+<<<<<<< HEAD
             <Property name="text" type="java.lang.String" value="*Upi&#x161;ite ime &#x10d;lana"/>
+=======
+            <Property name="text" type="java.lang.String" value="*Upi&#x161;ite ime pisca"/>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_EmptyFirstName_MouseClicked"/>
@@ -266,7 +270,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="fd" type="rgb"/>
             </Property>
+<<<<<<< HEAD
             <Property name="text" type="java.lang.String" value="*Upi&#x161;ite prezime &#x10d;lana"/>
+=======
+            <Property name="text" type="java.lang.String" value="*Upi&#x161;ite prezime autora"/>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel_EmptyLastName_MouseClicked"/>

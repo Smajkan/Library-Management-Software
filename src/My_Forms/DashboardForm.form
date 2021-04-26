@@ -74,7 +74,11 @@
                       <Component id="jPanel_2" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel_3" alignment="0" max="32767" attributes="0"/>
                   </Group>
+<<<<<<< HEAD
                   <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+=======
+                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                   <Component id="jPanel_4" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -102,16 +106,26 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
                                   <Component id="jButton_AddMember_" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                       <Component id="jButton_DeleteMember_" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jButton_Members_List_" max="32767" attributes="0"/>
                                           <Component id="jButton_EditMember_" min="-2" max="-2" attributes="0"/>
+=======
+                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="jButton4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jButton3" max="32767" attributes="0"/>
+                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
+<<<<<<< HEAD
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -132,6 +146,8 @@
                                   </Group>
                               </Group>
                           </Group>
+=======
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -141,6 +157,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel_Header" min="-2" max="-2" attributes="0"/>
+<<<<<<< HEAD
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -160,6 +177,19 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton_Members_List_" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+=======
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel8" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                   </Group>
               </Group>
             </DimensionLayout>
@@ -226,10 +256,17 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="&#x10c;lanovi"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton_EditMember_">
+=======
+                <Property name="text" type="java.lang.String" value="Knjige"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton1">
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
@@ -237,6 +274,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Uredi &#x10d;lana"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
               </Properties>
@@ -245,6 +283,13 @@
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton_AddMember_">
+=======
+                <Property name="text" type="java.lang.String" value="Dodaj novu knjigu"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton2">
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
@@ -252,12 +297,17 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Dodaj &#x10d;lana"/>
+=======
+                <Property name="text" type="java.lang.String" value="Dodaj novu knjigu"/>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+<<<<<<< HEAD
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_AddMember_ActionPerformed"/>
               </Events>
@@ -304,6 +354,10 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Manage_Genres_">
+=======
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton3">
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
@@ -311,6 +365,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Uredi &#x17e;anr"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -333,6 +388,13 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton_Manage_Authors_">
+=======
+                <Property name="text" type="java.lang.String" value="Dodaj novu knjigu"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton4">
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
@@ -340,6 +402,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
+<<<<<<< HEAD
                 <Property name="text" type="java.lang.String" value="Uredi autora"/>
                 <Property name="contentAreaFilled" type="boolean" value="false"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -349,6 +412,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_Manage_Authors_ActionPerformed"/>
               </Events>
+=======
+                <Property name="text" type="java.lang.String" value="Dodaj novu knjigu"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+              </Properties>
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
             </Component>
           </SubComponents>
         </Container>

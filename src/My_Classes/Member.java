@@ -125,7 +125,11 @@ public class Member {
     
     
       //Funkcija za editovanje member pomoću ID-a
+<<<<<<< HEAD
         public void editMember(Integer _id,String _fname, String _lname, String _phone, String _email, String _gender, byte[] _pic)
+=======
+        public void editAuthor(Integer _id,String _fname, String _lname, String _phone, String _email, String _gender, byte[] _pic)
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
     {
         String editQuery = "UPDATE `members` SET `firstName`=?, `lastName`=?, `phone`=?, `email`=?, `gender`=?, `picture`=?  WHERE `id`=?";
         
@@ -152,7 +156,10 @@ public class Member {
         
         } catch (SQLException ex) {
             Logger.getLogger(Member.class.getName()).log(Level.SEVERE, null, ex);
+<<<<<<< HEAD
   
+=======
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
         }
         
     }
@@ -197,12 +204,16 @@ public class Member {
             return new Member(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBytes(7));    
             }
             else{
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
                 return null;
             }
             
         }
     
+<<<<<<< HEAD
         
         
             //funkcija da se sastavi arrayList zajedno sa članovima
@@ -234,4 +245,6 @@ public class Member {
         }
         return mList;
         }
+=======
+>>>>>>> 026dd4d0b1387d16067b5780470b77f73f2c604a
 }
