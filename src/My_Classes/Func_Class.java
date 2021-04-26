@@ -21,13 +21,18 @@ public class Func_Class {
     
      public void displayImage(int width, int height, byte[] imagebyte, String imagePath, JLabel label){
         //ucitavanje slike,
-        ImageIcon imgIco;
-        if(imagebyte != null){
+       ImageIcon imgIco;
+        if(imagebyte != null){ //pomocu bytes dobijamo sliku
             imgIco = new ImageIcon(imagebyte);
         }
         else{
-
-            imgIco = new ImageIcon(getClass().getResource(imagePath));
+            try{
+                //uzimamo sliku iz project resursa
+                imgIco = new ImageIcon(getClass().getResource(imagePath));
+              }catch(Exception e){
+                  //Uzimamo sliku sa racunara
+              imgIco = new ImageIcon(imagePath);
+              }
         }
        
        //Kako bi slika fitovala se u label
