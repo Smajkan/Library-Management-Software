@@ -79,7 +79,7 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4.setText("User Type:");
 
         jComboBox_UserType.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jComboBox_UserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox_UserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "korisnik", "bibliotekar" }));
 
         jButton_Login.setBackground(new java.awt.Color(204, 153, 0));
         jButton_Login.setFont(new java.awt.Font("Verdana", 0, 24)); // NOI18N
