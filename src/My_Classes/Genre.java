@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.HashMap;
 /**
  *
  * @author aldin
@@ -49,6 +50,7 @@ public class Genre {
     
     
     //funkcije
+      My_Classes.Func_Class func = new Func_Class();
     //funkcija za ubacivanje novog žanra
     public void addGenre(String _name)
     {
@@ -130,8 +132,8 @@ public class Genre {
         
         //funkcija da se sastavi arrayList zajedno sa žanrovima
         public ArrayList<Genre> genreList(){
-            ArrayList<Genre> gList = new ArrayList<>();
-           My_Classes.Func_Class func = new Func_Class();
+           ArrayList<Genre> gList = new ArrayList<>();
+         
            
         try {
            ResultSet rs = func.getData("SELECT * FROM `book_genres`");
@@ -150,4 +152,34 @@ public class Genre {
         }
         return gList;
         }
+        
+        
+        //Funkcija kako bi vratili hashmap
+        //String je kljuc
+        // integer je vrijednost
+        public HashMap<String, Integer> getGenresMap()
+        {
+            
+            HashMap<String, Integer> map = new HashMap<>();
+            
+             try {
+           ResultSet rs = func.getData("SELECT * FROM `book_genres`");
+            
+            Genre genre;
+            
+            
+            while(rs.next()){
+                genre = new Genre(rs.getInt("id"), rs.getString("name"));
+             map.put(genre.getName(),genre.getId());
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+             return map;
+        }
+        
+        
 }

@@ -5,22 +5,20 @@
  */
 package My_Forms;
 
-import My_Classes.Member;
 
 import java.awt.Color;
-import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import javax.swing.Icon;
 import javax.swing.border.Border;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,6 +32,11 @@ public class AddBookForm extends javax.swing.JFrame {
     
     My_Classes.Member member = new My_Classes.Member();
     My_Classes.Func_Class func  = new My_Classes.Func_Class();
+    My_Classes.Genre genre  = new My_Classes.Genre();
+    HashMap<String, Integer> genresMap = genre.getGenresMap();
+    
+    
+    String  imagePath ="";
     
     public AddBookForm() {
         initComponents();
@@ -49,9 +52,13 @@ public class AddBookForm extends javax.swing.JFrame {
         func.displayImage(90,60,null,"/My_Images/book.png",jLabel_FormTitle);
 
         
+        //jComboBox populacija sa žanrovima
+       fillJcomboxWithGenres();
+        
+        
         //Dodajemo crni border za jLabel sliku
-         // Border JlabelImageBorder = BorderFactory.createMatteBorder(2,2,2,2, new Color(0,0,0)); 
-        //  jLabel_Image.setBorder(JlabelImageBorder);
+         Border JlabelImageBorder = BorderFactory.createMatteBorder(2,2,2,2, new Color(0,0,0)); 
+        jLabel_Image.setBorder(JlabelImageBorder);
         
         
         //Default slika na jLabelu koja ce se prikazivati:
@@ -95,10 +102,13 @@ public class AddBookForm extends javax.swing.JFrame {
         jButton_Add_ = new javax.swing.JButton();
         jLabel_FormTitle = new javax.swing.JLabel();
         jLabel_CloseForm_ = new javax.swing.JLabel();
-        jComboBox_Genre = new javax.swing.JComboBox<>();
+        jComboBox_Genre_ = new javax.swing.JComboBox<>();
         jDateChooser_Date = new com.toedter.calendar.JDateChooser();
         jSpinner_Quantity = new javax.swing.JSpinner();
         jButton_select_author_ = new javax.swing.JButton();
+        jLabel_Author_ID = new javax.swing.JLabel();
+        jLabel_Genre_ID = new javax.swing.JLabel();
+        jButton_Clear_ = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -119,6 +129,12 @@ public class AddBookForm extends javax.swing.JFrame {
         jLabel4.setText("Autor:");
 
         jTextField_Author.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jTextField_Author.setEnabled(false);
+        jTextField_Author.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_AuthorActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
         jLabel5.setText("Količina:");
@@ -205,19 +221,34 @@ public class AddBookForm extends javax.swing.JFrame {
             }
         });
 
-        jComboBox_Genre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox_Genre.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_Genre_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBox_Genre_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_GenreActionPerformed(evt);
+                jComboBox_Genre_ActionPerformed(evt);
             }
         });
 
         jSpinner_Quantity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jButton_select_author_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton_select_author_.setText("Odaberi autora");
         jButton_select_author_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_select_author_ActionPerformed(evt);
+            }
+        });
+
+        jLabel_Author_ID.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel_Author_ID.setText("ID");
+
+        jLabel_Genre_ID.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabel_Genre_ID.setText("ID");
+
+        jButton_Clear_.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton_Clear_.setText("Očisti");
+        jButton_Clear_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Clear_ActionPerformed(evt);
             }
         });
 
@@ -227,61 +258,70 @@ public class AddBookForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSpinner_Quantity))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField_Price)
-                                .addComponent(jTextField_Publisher)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField_ISBN))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel10))
-                            .addGap(24, 24, 24)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField_Author)
-                                .addComponent(jTextField_Name)
-                                .addComponent(jComboBox_Genre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jDateChooser_Date, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
-                    .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_select_author_, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner_Quantity))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_Cancel_, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_Price)
+                            .addComponent(jTextField_Publisher)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_ISBN))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel10))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField_Author)
+                            .addComponent(jTextField_Name)
+                            .addComponent(jComboBox_Genre_, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser_Date, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_Author_ID)
+                    .addComponent(jLabel_Genre_ID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
                             .addComponent(jLabel9)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton_Select_Image_, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                                    .addComponent(jLabel_Image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel_ImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jButton_Select_Image_, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(158, 158, 158))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton_select_author_, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(67, 67, 67))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel_FormTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 1026, Short.MAX_VALUE)
+                .addComponent(jLabel_FormTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel_CloseForm_, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(262, 262, 262)
+                .addComponent(jButton_Clear_, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton_Cancel_, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,46 +343,51 @@ public class AddBookForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField_Author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_select_author_, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton_select_author_, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Author_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox_Genre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jComboBox_Genre_)
+                            .addComponent(jLabel_Genre_ID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addComponent(jSpinner_Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(168, 168, 168))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField_Publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField_Price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                                    .addComponent(jDateChooser_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(258, 258, 258))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Publisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                            .addComponent(jDateChooser_Date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel_ImagePath)
-                            .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jSpinner_Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton_Select_Image_)
-                .addGap(222, 222, 222)
+                            .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_Select_Image_)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Cancel_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Clear_, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -371,9 +416,9 @@ public class AddBookForm extends javax.swing.JFrame {
 
             String path = func.selectImage();
             jLabel_ImagePath.setText(path);
-            //imagePath = path;
+            
             func.displayImage(210,165,null,path,jLabel_Image);
-    
+            imagePath = path;
     }//GEN-LAST:event_jButton_Select_Image_ActionPerformed
 
     private void jButton_Cancel_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Cancel_ActionPerformed
@@ -389,25 +434,38 @@ public class AddBookForm extends javax.swing.JFrame {
         String name = jTextField_Name.getText();
         String publisher = jTextField_Publisher.getText();
         String description = jTextArea_Description.getText();
-        
-        Integer author_id = 0;
-        Integer genre_id = 0;
+        Integer author_id = Integer.parseInt(jLabel_Author_ID.getText());
+        Integer genre_id = Integer.parseInt(jLabel_Genre_ID.getText());
         Integer quantity = Integer.parseInt(jSpinner_Quantity.getValue().toString());
-        
-        Date received_date;
         Double price = Double.parseDouble(jTextField_Price.getText());
         
-        //
-        //Path path = Paths.get(imagePath);
-        //byte[] img = Files.readAllBytes(path);
-        
-        
-        
+       //Očitavanje bitova slike
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String received_date=dateFormat.format(jDateChooser_Date.getDate());
+        Path path = Paths.get(imagePath);
+        byte[] img = Files.readAllBytes(path);            
+        My_Classes.Book book = new My_Classes.Book();
+        book.addBook(isbn, name, author_id, genre_id, quantity, publisher, price, received_date, description, img);
+        } catch (IOException ex) {
+            Logger.getLogger(AddBookForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton_Add_ActionPerformed
 
-    private void jComboBox_GenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_GenreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_GenreActionPerformed
+    private void jComboBox_Genre_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_Genre_ActionPerformed
+//Iz razloga sto ce se bacati error, da izbjegnemo to dodajemo prazan try-catch 
+
+try{
+    // Prikazivanje id selektovanog zanra
+        int genreId = genresMap.get(jComboBox_Genre_.getSelectedItem().toString());
+        jLabel_Genre_ID.setText(String.valueOf(genreId));
+}catch(Exception ex){
+    System.out.println("Error iz jComboBox_Genre_ActionPerformed - " + ex.getMessage());
+}
+
+
+    }//GEN-LAST:event_jComboBox_Genre_ActionPerformed
 
     private void jButton_select_author_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_select_author_ActionPerformed
         // Prikazivanje forme 
@@ -418,17 +476,45 @@ public class AddBookForm extends javax.swing.JFrame {
         authorsForm.setVisible(true);
     }//GEN-LAST:event_jButton_select_author_ActionPerformed
 
+    private void jTextField_AuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AuthorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_AuthorActionPerformed
+
+    private void jButton_Clear_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Clear_ActionPerformed
+
+        //Ciscenje svih polja
+        jTextField_ISBN.setText("");
+        jTextField_Name.setText("");
+        jTextField_Author.setText("");
+        jLabel_Author_ID.setText("ID");
+        jComboBox_Genre_.setSelectedIndex(0);
+        jTextField_Price.setText("");
+        jTextField_Publisher.setText("");
+        jTextArea_Description.setText("");
+        jSpinner_Quantity.setValue(0);
+        jDateChooser_Date.setDate(new java.util.Date());
+        
+        
+        jLabel_Image.setIcon(null);
+        jLabel_ImagePath.setText("Path do slike....");
+    }//GEN-LAST:event_jButton_Clear_ActionPerformed
+
     
     // prikazivanje selektovanog autora
     public static void displayAuthorData(int id, String fullName)
     {
           jTextField_Author.setText(fullName);
+          jLabel_Author_ID.setText(String.valueOf(id));
     }
     
     
     //Funkcija da se populateuje jComboBox sa imenima žanrova iz baze koristeći id hashmap-a
     public void fillJcomboxWithGenres()
     {
+        
+        for(String genreName : genresMap.keySet()){
+            jComboBox_Genre_.addItem(genreName);
+        }
         
     }
     
@@ -473,9 +559,10 @@ public class AddBookForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Add_;
     private javax.swing.JButton jButton_Cancel_;
+    private javax.swing.JButton jButton_Clear_;
     private javax.swing.JButton jButton_Select_Image_;
     private javax.swing.JButton jButton_select_author_;
-    private javax.swing.JComboBox<String> jComboBox_Genre;
+    private javax.swing.JComboBox<String> jComboBox_Genre_;
     private com.toedter.calendar.JDateChooser jDateChooser_Date;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -487,8 +574,10 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private static javax.swing.JLabel jLabel_Author_ID;
     private javax.swing.JLabel jLabel_CloseForm_;
     private javax.swing.JLabel jLabel_FormTitle;
+    private javax.swing.JLabel jLabel_Genre_ID;
     private javax.swing.JLabel jLabel_Image;
     private javax.swing.JLabel jLabel_ImagePath;
     private javax.swing.JPanel jPanel1;
