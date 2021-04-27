@@ -68,12 +68,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel_FullName" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel_Image" min="-2" pref="180" max="-2" attributes="0"/>
                       <Component id="jLabel_Phone" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel_Email" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel_Gender" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel_Image" min="-2" pref="195" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

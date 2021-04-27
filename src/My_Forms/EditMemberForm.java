@@ -378,7 +378,6 @@ String imagePath = null;
                     Logger.getLogger(EditMemberForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-               
             }else{
                 JOptionPane.showMessageDialog(null, "Odaberite sliku profila za ovog člana.", "Profilna slika nije odabrana",2);
             }

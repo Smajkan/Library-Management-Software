@@ -37,15 +37,19 @@ public class MemberListForm extends javax.swing.JFrame {
         Border panelHeaderBorder = BorderFactory.createMatteBorder(3,3,3,3, new Color(1, 152, 117)); 
         jPanel1.setBorder(panelHeaderBorder);
         
-        //Prikaz slike
-         func.displayImage(90,60,null,"/My_Images/members.png", jLabel_FormTitle);
         
-               
+        func.displayImage(90,60,null,"/My_Images/members.png",jLabel_FormTitle);
+        
         func.customTable(jTable_Members_);     
         func.customTableHeader(jTable_Members_, new Color(36,37,42), 16);
-//Dodajemo crni border za jLabel sliku
+        
+        //Dodajemo crni border za jLabel sliku
          Border JlabelImageBorder = BorderFactory.createMatteBorder(2,2,2,2, new Color(0,0,0)); 
         jLabel_Image.setBorder(JlabelImageBorder);
+        
+        
+        //Default slika na jLabelu koja ce se prikazivati:
+        func.displayImage(195,146,null,"/My_Images/blank-profile.png", jLabel_Image);
         
         //Prikaz članova u jTable-u
         populateJtableWithMembers("");
@@ -171,11 +175,11 @@ public class MemberListForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_FullName)
-                    .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Phone)
                     .addComponent(jLabel_Email)
-                    .addComponent(jLabel_Gender))
-                .addGap(156, 156, 156))
+                    .addComponent(jLabel_Gender)
+                    .addComponent(jLabel_Image, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(141, 141, 141))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
