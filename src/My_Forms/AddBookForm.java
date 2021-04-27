@@ -6,10 +6,15 @@
 package My_Forms;
 
 import My_Classes.Member;
+
 import java.awt.Color;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -93,6 +98,7 @@ public class AddBookForm extends javax.swing.JFrame {
         jComboBox_Genre = new javax.swing.JComboBox<>();
         jDateChooser_Date = new com.toedter.calendar.JDateChooser();
         jSpinner_Quantity = new javax.swing.JSpinner();
+        jButton_select_author_ = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -208,6 +214,13 @@ public class AddBookForm extends javax.swing.JFrame {
 
         jSpinner_Quantity.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jButton_select_author_.setText("Odaberi autora");
+        jButton_select_author_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_select_author_ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -247,7 +260,9 @@ public class AddBookForm extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jDateChooser_Date, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
                     .addComponent(jButton_Add_, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(162, 162, 162)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_select_author_, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -287,17 +302,17 @@ public class AddBookForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
+                            .addComponent(jTextField_Author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_select_author_, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox_Genre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -352,26 +367,13 @@ public class AddBookForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel_CloseForm_MouseClicked
 
     private void jButton_Select_Image_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Select_Image_ActionPerformed
-                //Selektovanje slike iz računara
-        
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Odaberite Naslovnicu Knjige");
-        
-        fileChooser.setCurrentDirectory(new File("C:\\Images"));
-        
-        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("image",".png",".jpg",".jpeg");
-        fileChooser.addChoosableFileFilter(extensionFilter);
-        
-        int fileState = fileChooser.showSaveDialog(null);
-        
-        if(fileState == JFileChooser.APPROVE_OPTION){
-            String path = fileChooser.getSelectedFile().getAbsolutePath();
-            jLabel_ImagePath.setText(path);
+     //Selektovanje slike iz računara
 
-            
-            //prikaz slike
+            String path = func.selectImage();
+            jLabel_ImagePath.setText(path);
+            //imagePath = path;
             func.displayImage(210,165,null,path,jLabel_Image);
-        }
+    
     }//GEN-LAST:event_jButton_Select_Image_ActionPerformed
 
     private void jButton_Cancel_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Cancel_ActionPerformed
@@ -383,12 +385,52 @@ public class AddBookForm extends javax.swing.JFrame {
         //Ubacivanje nove knjige
         
         //uzimamo vrijednosti
+        String isbn = jTextField_ISBN.getText();
+        String name = jTextField_Name.getText();
+        String publisher = jTextField_Publisher.getText();
+        String description = jTextArea_Description.getText();
+        
+        Integer author_id = 0;
+        Integer genre_id = 0;
+        Integer quantity = Integer.parseInt(jSpinner_Quantity.getValue().toString());
+        
+        Date received_date;
+        Double price = Double.parseDouble(jTextField_Price.getText());
+        
+        //
+        //Path path = Paths.get(imagePath);
+        //byte[] img = Files.readAllBytes(path);
+        
+        
+        
     }//GEN-LAST:event_jButton_Add_ActionPerformed
 
     private void jComboBox_GenreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_GenreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_GenreActionPerformed
 
+    private void jButton_select_author_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_select_author_ActionPerformed
+        // Prikazivanje forme 
+        // Forma će imati popularizovanu jTable sa autorima...
+        //Korisnik će moći selektovati autora iz tabele i on će biti prikazan u jTextField-u
+        AuthorsListForm authorsForm = new AuthorsListForm();
+        
+        authorsForm.setVisible(true);
+    }//GEN-LAST:event_jButton_select_author_ActionPerformed
+
+    
+    // prikazivanje selektovanog autora
+    public static void displayAuthorData(int id, String fullName)
+    {
+          jTextField_Author.setText(fullName);
+    }
+    
+    
+    //Funkcija da se populateuje jComboBox sa imenima žanrova iz baze koristeći id hashmap-a
+    public void fillJcomboxWithGenres()
+    {
+        
+    }
     
     
     /**
@@ -432,6 +474,7 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Add_;
     private javax.swing.JButton jButton_Cancel_;
     private javax.swing.JButton jButton_Select_Image_;
+    private javax.swing.JButton jButton_select_author_;
     private javax.swing.JComboBox<String> jComboBox_Genre;
     private com.toedter.calendar.JDateChooser jDateChooser_Date;
     private javax.swing.JLabel jLabel10;
@@ -452,7 +495,7 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner_Quantity;
     private javax.swing.JTextArea jTextArea_Description;
-    private javax.swing.JTextField jTextField_Author;
+    private static javax.swing.JTextField jTextField_Author;
     private javax.swing.JTextField jTextField_ISBN;
     private javax.swing.JTextField jTextField_Name;
     private javax.swing.JTextField jTextField_Price;

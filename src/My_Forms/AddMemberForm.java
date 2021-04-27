@@ -23,7 +23,8 @@ public class AddMemberForm extends javax.swing.JFrame {
     
 //Kreiramo člana objekta
 My_Classes.Member member = new My_Classes.Member();
-
+//Poziv funkcije da se prikazuju slike na vrhu
+My_Classes.Func_Class func = new My_Classes.Func_Class();
 
 
 
@@ -44,8 +45,6 @@ String imagePath = null;
         jPanel1.setBorder(panelHeaderBorder);
          
          //prikaz slike u vrhu
-        //Poziv funkcije da se pokaze slika na vrhu
-        My_Classes.Func_Class func = new My_Classes.Func_Class();
         func.displayImage(90,60,null,"/My_Images/members.png", jLabel_FormTitle);
         
 
@@ -365,22 +364,11 @@ String imagePath = null;
 
     private void jButton_SelectProfilePicture_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SelectProfilePicture_ActionPerformed
         //Selektovanje slike iz računara
-        
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Odaberite Sliku Profila");
-        
-        fileChooser.setCurrentDirectory(new File("C:\\Images"));
-        
-        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("image",".png",".jpg",".jpeg");
-        fileChooser.addChoosableFileFilter(extensionFilter);
-        
-        int fileState = fileChooser.showSaveDialog(null);
-        
-        if(fileState == JFileChooser.APPROVE_OPTION){
-            String path = fileChooser.getSelectedFile().getAbsolutePath();
+
+            String path = func.selectImage();
             jLabel_ImagePath.setText(path);
             imagePath = path;
-        }
+    
     }//GEN-LAST:event_jButton_SelectProfilePicture_ActionPerformed
 
     

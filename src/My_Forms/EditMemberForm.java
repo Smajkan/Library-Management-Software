@@ -399,25 +399,11 @@ String imagePath = null;
 
     private void jButton_SelectProfilePicture_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SelectProfilePicture_ActionPerformed
         //Selektovanje slike iz računara
-        
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Odaberite Sliku Profila");
-        
-        fileChooser.setCurrentDirectory(new File("C:\\Images"));
-        
-        FileNameExtensionFilter extensionFilter = new FileNameExtensionFilter("image",".png",".jpg",".jpeg");
-        fileChooser.addChoosableFileFilter(extensionFilter);
-        
-        int fileState = fileChooser.showSaveDialog(null);
-        
-        if(fileState == JFileChooser.APPROVE_OPTION){
-            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            String path = func.selectImage();
             jLabel_ImagePath.setText(path);
             imagePath = path;
-            
             //prikaz slike
             func.displayImage(180,141,null,path,jLabel_Image);
-        }
     }//GEN-LAST:event_jButton_SelectProfilePicture_ActionPerformed
 
     private void jButton_Search_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Search_ActionPerformed
